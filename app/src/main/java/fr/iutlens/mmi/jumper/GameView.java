@@ -22,6 +22,7 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     private double prep;
     private Fond fond;
     private float d;
+    private Life life;
 
     public GameView(Context context) {
         super(context);
@@ -53,6 +54,9 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
         SpriteSheet.register(R.drawable.fond_runner,2,1,this.getContext());
         fond = new Fond(R.drawable.fond_runner);
 
+        SpriteSheet.register(R.drawable.heart,1,1,this.getContext());
+        life = new Life(R.drawable.heart);
+
         SpriteSheet.register(R.drawable.decor_running,3,4,this.getContext());
         level = new Level(R.drawable.decor_running,null);
         SpriteSheet.register(R.drawable.running_rabbit,3,3,this.getContext());
@@ -83,7 +87,7 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
             current_pos += SPEED;
             d           += SPEED/40;
             if (current_pos>level.getLength()) current_pos = 0;
-            hero.update(level.getFloor(current_pos+1),level.getSlope(current_pos+1));
+            hero.update(level,current_pos);
             invalidate(); // demande à rafraichir la vue
         }
     }
@@ -102,6 +106,7 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
 
         // On choisit la transformation à appliquer à la vue i.e. la position
         // de la "camera"
+        canvas.save();
         setCamera(canvas);
 
         // Dessin des différents éléments
@@ -111,8 +116,12 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
         float y = hero.getY();
         hero.paint(canvas,level.getX(x),level.getY(y));
 
+        canvas.restore();
+//        if (Hero.lifes == 0) {
+        life.paint(canvas, 100);
 
     }
+
 
     private void setCamera(Canvas canvas) {
 
