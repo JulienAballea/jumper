@@ -148,4 +148,10 @@ public class Level {
         int start = (int) Math.floor(pos);
         return slope[start];
     }
+
+    public boolean isObstacle(float pos) {
+        int ndx = (int) Math.floor(pos);
+        int id =  sprite_id[ndx];
+        return id>=6;
+    }
 }

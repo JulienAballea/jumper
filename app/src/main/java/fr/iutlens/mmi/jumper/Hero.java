@@ -11,6 +11,7 @@ import fr.iutlens.mmi.jumper.utils.SpriteSheet;
 public class Hero {
 
     public static final int SAME_FRAME = 3;
+    public static int lifes = 3;
     private final float BASELINE = 0.93f;
 
 
@@ -28,7 +29,7 @@ public class Hero {
 
     private int frame;
     private int cpt;
-
+    private int invicibility;
 
 
     public Hero(int sprite_id, float vx){
@@ -46,7 +47,11 @@ public class Hero {
         return y;
     }
 
-    public void update(float floor, float slope){
+    public void update(Level level, float current_pos){
+        float floor = level.getFloor(current_pos+1);
+        float slope = level.getSlope(current_pos+1);
+        if (invicibility>0) invicibility--;
+
         y += vy; // inertie
         float altitude = y-floor;
         if (altitude <0){ // On est dans le sol : atterrissage
@@ -63,6 +68,14 @@ public class Hero {
                 vy = (slope-G)*vx; // On suit le sol...
                 cpt = (cpt+1)% SAME_FRAME;
                 if (cpt==0) frame = (frame+1)%8;
+            }
+            if (level.isObstacle(current_pos+1)) {
+
+                if (invicibility == 0) {
+                    lifes = lifes - 1;
+                    invicibility = 30;
+                }
+
             }
         } else { // actuellement en vol
             vy -= G*vx; // effet de la gravité
