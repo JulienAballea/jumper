@@ -118,7 +118,7 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
         canvas.scale(scale, scale);
 
         // On centre sur la position actuelle de la voiture (qui se retrouve en 0,0 )
-        canvas.translate(0,-level.getY(hero.getY()));
+        canvas.translate(0, (float) (-level.getY(hero.getY())*.8));
 
     }
 

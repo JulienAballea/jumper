@@ -74,7 +74,10 @@ public class Hero {
     }
 
     public void paint(Canvas canvas, float x, float y){
-        sprite.paint(canvas,frame,x-sprite.w/2,y-sprite.h*BASELINE);
+        float scale = 0.5f;
+        canvas.translate(x,y);
+        canvas.scale(scale,scale);
+        sprite.paint(canvas,frame,-sprite.w/2,-sprite.h*BASELINE);
     }
 
     public void jump(float strength) {
