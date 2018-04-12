@@ -1,8 +1,8 @@
-package fr.iutlens.mmi.jumper;
+package fr.iutlens.mmi.robotjumper;
 
 import android.graphics.Canvas;
 
-import fr.iutlens.mmi.jumper.utils.SpriteSheet;
+import fr.iutlens.mmi.robotjumper.utils.SpriteSheet;
 
 /**
  * Created by dubois on 30/12/2017.

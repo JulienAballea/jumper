@@ -1,4 +1,4 @@
-package fr.iutlens.mmi.jumper.utils;
+package fr.iutlens.mmi.robotjumper.utils;
 
 /**
  * Created by dubois on 27/12/2017.
