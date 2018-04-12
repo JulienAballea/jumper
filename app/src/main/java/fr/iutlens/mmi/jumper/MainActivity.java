@@ -2,6 +2,7 @@ package fr.iutlens.mmi.jumper;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import fr.iutlens.mmi.jumper.utils.AccelerationProxy;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // On récupère la vue du jeu
         GameView game = findViewById(R.id.gameView);
+
+        game.setTextViewScore((TextView) findViewById(R.id.textView));
 
         // On configure le jeu pour recevoir les changements d'orientation
         proxy = new AccelerationProxy(this, game);

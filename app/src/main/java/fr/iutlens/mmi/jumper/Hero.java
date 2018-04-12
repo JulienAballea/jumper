@@ -17,7 +17,7 @@ public class Hero {
 
     public static final float MAX_STRENGTH = 2f;
     private final float G = 0.2f;
-    private final float IMPULSE = 2.5f;
+    private final float IMPULSE = 1.4f;
 
     private SpriteSheet sprite;
 
@@ -26,6 +26,7 @@ public class Hero {
     private float vx;
 
     private float jump;
+    private int nbjump=0;
 
     private int frame;
     private int cpt;
@@ -40,6 +41,7 @@ public class Hero {
         frame =0;
         cpt = 0;
         this.vx = vx;
+        nbjump=0;
     }
 
 
@@ -52,17 +54,28 @@ public class Hero {
         float slope = level.getSlope(current_pos+1);
         if (invicibility>0) invicibility--;
 
+
+
         y += vy; // inertie
+
+        if (y<-5) lifes = 0;
         float altitude = y-floor;
-        if (altitude <0){ // On est dans le sol : atterrissage
+        if (altitude <0){// On est dans le sol : atterrissage
+            float a = altitude-vy+slope*vx;
+            if (a <-0.5f && altitude<-0.5f) {
+                lifes = lifes - 1;
+                invicibility = 30;
+            }
             vy = 0; //floor-y;
             y = floor;
             altitude = 0;
         }
         if (altitude == 0){ // en contact avec le sol
+            nbjump=0;
             if (jump != 0) {
                 vy = jump*IMPULSE*vx; // On saute ?
                 frame = 3;
+                nbjump= nbjump +1 ;
             } else {
 //                vy = -G*vx;
                 vy = (slope-G)*vx; // On suit le sol...
@@ -78,12 +91,19 @@ public class Hero {
 
             }
         } else { // actuellement en vol
+            if (jump !=0 && nbjump<2){
+                vy = jump*IMPULSE*vx; // On saute ?
+                frame = 3;
+                nbjump= nbjump +1 ;
+            }
+
             vy -= G*vx; // effet de la gravité
             frame = (vy>0) ? 3 : 5;
 //            if (y < floor+slope*vx) y = floor+slope*vx; // atterrissage ?
         }
 
         jump = 0;
+
     }
 
     public void paint(Canvas canvas, float x, float y){

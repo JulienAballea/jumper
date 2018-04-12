@@ -20,10 +20,12 @@ public class Level {
     // * é è
     // + (13)  // élévation du niveau de base
     // - (14)  // baisse du niveau de base
+    // _ (15)      baisse du niveau de base x10
+    // ~ (16)
 
-    private final String CODE = " (=)o/\\<^>*éè+-";
-    private final String SLOPE ="     +-    +-";
-    private String def = "(==\\^///==^==^\\\\^==/)----<^é>++(//=^=> ++o-- *- o +(==^=)";
+    private final String CODE = " (=)o/\\<^>*éè+-_~";
+    private final String SLOPE ="     +-    +--+";
+    private String def = "(==\\^///==^==^\\\\^==/)----<^é>++(//=^=> ++o--_    ~*- o +(==^=)";
 
 
     private int[] sprite_id;
@@ -70,12 +72,13 @@ public class Level {
                         slope[pos] = -1;
                         baseline[pos] = current_baseline;
                         --current_baseline;
-                        break;
-                }
+                        break;}
                 ++pos;
             } else {
                 if (code==13) ++current_baseline;
                 else if (code == 14) --current_baseline;
+                else if (code == 15) current_baseline-=10;
+                else if (code == 16) current_baseline+=10;
             }
         }
     }
@@ -150,7 +153,7 @@ public class Level {
     }
 
     public boolean isObstacle(float pos) {
-        int ndx = (int) Math.floor(pos);
+        int ndx = ((int) Math.floor(pos))%sprite_id.length;
         int id =  sprite_id[ndx];
         return id>=6;
     }

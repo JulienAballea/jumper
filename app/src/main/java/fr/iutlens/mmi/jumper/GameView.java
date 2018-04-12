@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Arrays;
 
@@ -23,6 +24,18 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     private Fond fond;
     private float d;
     private Life life;
+    private float score;
+    private TextView textViewScore;
+
+    public void setTextViewScore(TextView score) {
+        textViewScore = score;
+
+    }
+
+    public void setScore(double score) {
+        this.score = (float) score;
+        if (textViewScore != null) textViewScore.setText(String.format("%.1f",score));
+    }
 
     public GameView(Context context) {
         super(context);
@@ -73,7 +86,11 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
             @Override
             public void onClick(View view) {
                 if (!timer.isRunning()) timer.scheduleRefresh(30);
+                else{
+                    hero.jump((float) Math.abs(2));
+                }
             }
+
         });
     }
 
@@ -83,12 +100,13 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     @Override
     public void update() {
         if (this.isShown()) { // Si la vue est visible
-            timer.scheduleRefresh(30); // programme le prochain rafraichissement
+            if(hero.lifes>0)timer.scheduleRefresh(30); // programme le prochain rafraichissement
             current_pos += SPEED;
             d           += SPEED/40;
             if (current_pos>level.getLength()) current_pos = 0;
             hero.update(level,current_pos);
             invalidate(); // demande à rafraichir la vue
+            setScore(score+0.01);
         }
     }
 
