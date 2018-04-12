@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         GameView game = findViewById(R.id.gameView);
 
         game.setTextViewScore((TextView) findViewById(R.id.textView));
+        game.setLostView(findViewById(R.id.linearLayout));
+        game.setLostView(findViewById(R.id.textView2));
 
         // On configure le jeu pour recevoir les changements d'orientation
         proxy = new AccelerationProxy(this, game);

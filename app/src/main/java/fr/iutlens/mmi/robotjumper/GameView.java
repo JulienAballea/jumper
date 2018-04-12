@@ -1,7 +1,10 @@
 package fr.iutlens.mmi.robotjumper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     private Life life;
     private float score;
     private TextView textViewScore;
+    private View lostView;
 
     public void setTextViewScore(TextView score) {
         textViewScore = score;
@@ -31,7 +35,9 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
 
     public void setScore(double score) {
         this.score = (float) score;
-        if (textViewScore != null) textViewScore.setText(String.format("%.1f",score));
+        if (textViewScore != null) {
+            textViewScore.setText(String.format("%.1f",score));
+        }
     }
 
     public GameView(Context context) {
@@ -82,7 +88,11 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!timer.isRunning()) timer.scheduleRefresh(30);
+                if (!timer.isRunning() && (hero.lifes>0))
+                {
+                    timer.scheduleRefresh(30);
+
+                }
                 else{
                     hero.jump((float) Math.abs(2));
                 }
@@ -98,6 +108,11 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     public void update() {
         if (this.isShown()) { // Si la vue est visible
             if(hero.lifes>0)timer.scheduleRefresh(30); // programme le prochain rafraichissement
+            else {
+                lostView.setVisibility(View.VISIBLE);
+                ((TextView)lostView.findViewById(R.id.textView2)).setText(String.format("%.1f",score));
+                textViewScore.setVisibility(View.INVISIBLE);
+            }
             current_pos += SPEED;
             d           += SPEED/40;
             if (current_pos>level.getLength()) current_pos = 0;
@@ -173,5 +188,13 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
             }
             prep = 0;
         }*/
+    }
+
+    public void setLostView(View lostView) {
+        this.lostView = lostView;
+    }
+
+    public View getLostView() {
+        return lostView;
     }
 }
