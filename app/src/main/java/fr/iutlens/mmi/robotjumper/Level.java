@@ -25,7 +25,7 @@ public class Level {
 
     private final String CODE = " (=)o/\\<^>*éè+-_~";
     private final String SLOPE ="     +-    +--+";
-    private String def = "(==\\^///==^==^\\\\^==/)----<^é>++(//=^=> ++o--_    ~*- o +(==^=)";
+    private String def = "(=)__  ~~(=^=)__  +~~(=)__  +~~(==^=^=)__  ~~++()--__  ~~++++<^==--__ ~~()--__   ~~";
 
 
     private int[] sprite_id;
@@ -45,7 +45,7 @@ public class Level {
     private void parse(String s){
         int size = 0;
         // Calcul de la longueur réelle du parcours (+- changent le niveau, pas la longueur)
-        for(int i = 0; i <s.length(); ++i) if (s.charAt(i) != '+' && s.charAt(i) != '-') ++size;
+        for(int i = 0; i <s.length(); ++i) if (s.charAt(i) != '+' && s.charAt(i) != '-'&& s.charAt(i) != '_'&& s.charAt(i) != '~') ++size;
 
         sprite_id = new int[size];
         baseline = new int[size];

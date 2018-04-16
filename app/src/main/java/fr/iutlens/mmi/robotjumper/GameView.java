@@ -108,10 +108,10 @@ public class GameView extends View implements TimerAction, AccelerationProxy.Acc
     public void update() {
         if (this.isShown()) { // Si la vue est visible
             if(hero.lifes>0)timer.scheduleRefresh(30); // programme le prochain rafraichissement
-            else {
+            if(hero.lifes<=0) {
                 lostView.setVisibility(View.VISIBLE);
-                ((TextView)lostView.findViewById(R.id.textView2)).setText(String.format("%.1f",score));
-                textViewScore.setVisibility(View.INVISIBLE);
+                 ((TextView)lostView.findViewById(R.id.textView2)).setText(String.format("%.1f",score));
+                 textViewScore.setVisibility(View.INVISIBLE);
             }
             current_pos += SPEED;
             d           += SPEED/40;

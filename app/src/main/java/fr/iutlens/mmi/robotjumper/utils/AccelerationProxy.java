@@ -5,7 +5,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 import java.util.Arrays;
 
@@ -111,7 +110,7 @@ public class AccelerationProxy implements SensorEventListener {
                 mLastAccelerometer[1] = gravity[1] ;
                 mLastAccelerometer[2] = gravity[2] - SensorManager.GRAVITY_EARTH;
 
-                Log.d("Accel", Arrays.toString(mLastAccelerometer));
+//                Log.d("Accel", Arrays.toString(mLastAccelerometer));
                 long dt = (lastTimestamp - previousTimestamp) / 1000000L;
 
                 if (previousTimestamp != -1 && dt <= 100) {

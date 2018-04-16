@@ -66,9 +66,11 @@ public class Hero {
                 lifes = lifes - 1;
                 invicibility = 30;
             }
-            vy = 0; //floor-y;
-            y = floor;
-            altitude = 0;
+            if(lifes>0) {
+                vy = 0; //floor-y;
+                y = floor;
+                altitude = 0;
+            }
         }
         if (altitude == 0){ // en contact avec le sol
             nbjump=0;
@@ -107,7 +109,7 @@ public class Hero {
     }
 
     public void paint(Canvas canvas, float x, float y){
-        float scale = 0.5f;
+        float scale = 0.9f;
         canvas.translate(x,y);
         canvas.scale(scale,scale);
         sprite.paint(canvas,frame,-sprite.w/2,-sprite.h*BASELINE);

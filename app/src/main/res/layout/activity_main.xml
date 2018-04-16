@@ -51,6 +51,7 @@
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent">
@@ -63,14 +64,16 @@
             android:gravity="center"
             android:text="0"
             android:textColor="#FFFF"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Restart" />
+            android:text="Restart"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
